@@ -2,8 +2,13 @@ package handler
 
 import (
 	"fmt"
+	"http-server/utils"
 	"net/http"
 )
+
+type HelloResponse struct {
+	Message string `json:"message"`
+}
 
 func HelloHandler(w http.ResponseWriter, r *http.Request) {
 
@@ -12,6 +17,14 @@ func HelloHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Fprintf(w, "Hello World")
+	name := r.URL.Query().Get("name")
+	if name == "" {
+		name = "Guest"
+	}
+
+	msg := fmt.Sprintf("Hello, %s!", name)
+	response := HelloResponse{Message: msg}
+
+	utils.WriteJSON(w, http.StatusOK, response)
 
 }
