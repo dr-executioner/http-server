@@ -18,6 +18,8 @@ func SetupRouter() *http.ServeMux {
 			handler.GetNoteById(w, r)
 		case http.MethodPost:
 			handler.DeleteNoteById(w, r)
+		case http.MethodPut:
+			handler.UpdateNote(w, r)
 		default:
 			utils.WriterError(w, http.StatusMethodNotAllowed, "Method not allowed")
 		}
