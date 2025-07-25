@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Notes</title>
+  <script src="https://unpkg.com/htmx.org"></script>
+  <script src="https://unpkg.com/htmx.org/dist/ext/json-enc.js"></script>
+</head>
+<body>
+  <h1>Create Note</h1>
+  <form hx-post="/notes" hx-ext="json-enc" hx-target="#response" hx-swap="innerHTML" hx-on::after-request="htmx.ajax('GET', '/notes', {target:'#all-notes'})">
+    <input name="title" placeholder="Title" /><br />
+    <textarea name="content" placeholder="Content"></textarea><br />
+    <button type="submit">Submit</button>
+  </form>
+
+  <h2>Latest Created Note:</h2>
+  <div id="response"></div>
+
+  <h3>All Notes</h3>
+  <div id="all-notes"></div>
+</body>
+</html>
+
