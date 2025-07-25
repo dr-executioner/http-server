@@ -12,7 +12,8 @@ func SetupRouter() *http.ServeMux {
 	mux.HandleFunc("/info", handler.InfoHandler)
 	mux.HandleFunc("/foobar", handler.FooHandler)
 	mux.HandleFunc("/echo", handler.EchoHandler)
-	mux.HandleFunc("/notes", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/notes/", handler.GetNoteById)
+	mux.HandleFunc("/note", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 		case http.MethodGet:
 			handler.GetNotesHandler(w, r)

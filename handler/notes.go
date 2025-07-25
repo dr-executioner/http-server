@@ -54,3 +54,25 @@ func GetNotesHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Fprintf(w, html.String())
 }
+
+func GetNoteById(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		utils.WriterError(w, http.StatusMethodNotAllowed, "MEthod not allowed")
+		return
+	}
+
+	id := strings.TrimPrefix(r.URL.Path, "/notes/")
+	if id == "" {
+		utils.WriterError(w, http.StatusBadRequest, "Missing ID")
+		return
+	}
+
+	for _, note := range notes {
+		if note.ID == id {
+			utils.WriteJSON(w, http.StatusOK, note)
+			return
+		}
+	}
+
+	utils.WriterError(w, http.StatusNotFound, "Note not found")
+}
