@@ -11,9 +11,8 @@ type HelloResponse struct {
 }
 
 func HelloHandler(w http.ResponseWriter, r *http.Request) {
-
 	if r.Method != http.MethodGet {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		utils.WriterError(w, http.StatusMethodNotAllowed, "Method Not Allowed")
 		return
 	}
 
@@ -24,7 +23,6 @@ func HelloHandler(w http.ResponseWriter, r *http.Request) {
 
 	msg := fmt.Sprintf("Hello, %s!", name)
 	response := HelloResponse{Message: msg}
-
 	utils.WriteJSON(w, http.StatusOK, response)
 
 }
