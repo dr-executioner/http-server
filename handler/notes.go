@@ -76,3 +76,29 @@ func GetNoteById(w http.ResponseWriter, r *http.Request) {
 
 	utils.WriterError(w, http.StatusNotFound, "Note not found")
 }
+
+func DeleteNoteById(w http.ResponseWriter, r *http.Request) {
+
+	if r.Method != http.MethodPost {
+		utils.WriterError(w, http.StatusMethodNotAllowed, "Method not allowed")
+		return
+	}
+
+	id := strings.TrimPrefix(r.URL.Path, "/notes/")
+	if id == "" {
+		utils.WriterError(w, http.StatusBadRequest, "Missing ID")
+		return
+	}
+
+	for i, note := range notes {
+		if note.ID == id {
+			notes = append(notes[:i], notes[i+1:]...)
+			utils.WriteJSON(w, http.StatusOK, map[string]string{
+				"message": "Note Deleted",
+			})
+
+			return
+		}
+		utils.WriterError(w, http.StatusNotFound, "Note not found")
+	}
+}
