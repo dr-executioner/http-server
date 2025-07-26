@@ -10,7 +10,6 @@ func SetupRouter() *http.ServeMux {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/hello", handler.HelloHandler)
 	mux.HandleFunc("/info", handler.InfoHandler)
-	mux.HandleFunc("/foobar", handler.FooHandler)
 	mux.HandleFunc("/echo", handler.EchoHandler)
 	mux.HandleFunc("/notes/", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {

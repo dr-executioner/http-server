@@ -2,7 +2,6 @@ package handler
 
 import (
 	"encoding/json"
-	"fmt"
 	"http-server/utils"
 	"net/http"
 )
@@ -17,7 +16,7 @@ type EchoResponse struct {
 
 func EchoHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
-		utils.WriterError(w, http.StatusMethodNotAllowed, "Method Not ALlowed")
+		utils.WriterError(w, http.StatusMethodNotAllowed, "Method Not Allowed")
 		return
 	}
 
@@ -26,10 +25,9 @@ func EchoHandler(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&req)
 
 	if err != nil || req.Message == "" {
-		utils.WriterError(w, http.StatusBadRequest, "Invalid JSON or misson body")
+		utils.WriterError(w, http.StatusBadRequest, "Invalid JSON or missing body")
 		return
 	}
-	fmt.Println(r.Body)
 	resp := EchoResponse{Received: req.Message}
 	utils.WriteJSON(w, http.StatusOK, resp)
 }

@@ -8,7 +8,7 @@
 </head>
 <body>
   <h1>Create Note</h1>
-  <form hx-post="/notes" hx-ext="json-enc" hx-target="#response" hx-swap="innerHTML" hx-on::after-request="htmx.ajax('GET', '/notes', {target:'#all-notes'})">
+  <form hx-post="/note" hx-ext="json-enc" hx-target="#response" hx-swap="innerHTML" hx-on::after-request="htmx.ajax('GET', '/note', {target:'#all-notes'})">
     <input name="title" placeholder="Title" /><br />
     <textarea name="content" placeholder="Content"></textarea><br />
     <button type="submit">Submit</button>
